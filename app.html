@@ -1746,6 +1746,40 @@ td mark,.dt mark{background:#fde68a;color:#111;padding:0 1px;border-radius:2px;}
   [data-theme="dark"] .ac-list.ac-float{background:var(--panel-2);}
   .ac-item{color:var(--text);}
 
+  /* ===== grouped nav menu: one category open at a time, no scrolling ===== */
+  .side-rail{padding:60px 12px 14px; gap:3px;}
+  .side-rail > .rail-group{display:none !important;}
+  .rg{border-radius:10px;}
+  .rg-head{display:flex; align-items:center; gap:10px; width:100%; background:transparent; border:1px solid transparent; border-radius:10px;
+    padding:10px 11px; cursor:pointer; font:600 13px/1.2 'Inter',sans-serif; color:var(--text); text-align:left;}
+  .rg-head:hover{background:var(--panel-2);}
+  .rg-ico{width:26px; height:26px; border-radius:7px; display:grid; place-items:center; background:var(--panel-2); font-size:14px; flex-shrink:0;}
+  .rg-lbl{flex:1;}
+  .rg-alert{width:8px; height:8px; border-radius:50%; background:var(--red,#d33); display:none;}
+  .rg.has-alert:not(.open) .rg-alert{display:block;}
+  .rg-chev{font-size:11px; color:var(--muted); transition:transform .2s ease;}
+  .rg.open .rg-chev{transform:rotate(90deg);}
+  .rg.open > .rg-head{background:var(--panel-2);}
+  .rg.has-active > .rg-head .rg-ico{background:var(--brand-soft); color:var(--brand);}
+  .rg-body{display:none; padding:3px 0 6px 18px; margin-left:12px; border-left:2px solid var(--border);}
+  .rg.open > .rg-body{display:block; animation:rgIn .18s ease;}
+  @keyframes rgIn{from{opacity:0; transform:translateY(-4px);} to{opacity:1; transform:none;}}
+  .rg-body .rail-btn{padding:7px 10px; font-size:12.5px;}
+  .rail-foot{margin-top:auto; padding-top:10px; border-top:1px solid var(--border); display:flex; gap:6px;}
+  .rail-foot button{flex:1; background:var(--panel-2); border:1px solid var(--border); color:var(--muted); border-radius:8px; padding:7px 8px; font:600 11.5px 'Inter',sans-serif; cursor:pointer;}
+  .rail-foot button:hover{color:var(--text); border-color:var(--brand-line);}
+  /* restricted roles: just their pages, no categories */
+  body.role-dieshop .rg-head, body.role-quality .rg-head, body.role-dieshop .rail-foot, body.role-quality .rail-foot{display:none !important;}
+  body.role-dieshop .rg-body, body.role-quality .rg-body{display:block !important; border:0; margin:0; padding:0;}
+
+  /* ===== short help text: long explanations show one line, click to read ===== */
+  body:not(.help-full) .ex-tip:not(.ex-open){max-height:1.7em; overflow:hidden; cursor:pointer; white-space:nowrap; text-overflow:ellipsis;}
+  body:not(.help-full) .sec-intro.ex-tip:not(.ex-open){max-height:calc(1.7em + 22px); padding-top:9px; padding-bottom:9px;}
+  body:not(.help-full) .ex-tip:not(.ex-open) br{display:none;}
+  body:not(.help-full) .ex-tip:not(.ex-open)::before{content:"ⓘ "; color:var(--brand); font-weight:700;}
+  body:not(.help-full) .ex-tip:not(.ex-open):hover{color:var(--text);}
+  .pg-print .ex-tip{max-height:none !important; -webkit-mask-image:none !important; mask-image:none !important; white-space:normal !important;}
+
   /* ===================== VOICE ENTRY ===================== */
   .fab-voice{position:fixed; right:18px; bottom:18px; z-index:801; width:58px; height:58px; border-radius:50%; border:none; background:var(--brand); color:#fff; font-size:26px; display:none; align-items:center; justify-content:center; box-shadow:0 10px 26px -8px var(--brand-line), var(--shadow); cursor:pointer;}
   body.cloud.role-admin .fab-voice, body.cloud.role-executive .fab-voice{display:flex;}
@@ -3337,7 +3371,7 @@ td mark,.dt mark{background:#fde68a;color:#111;padding:0 1px;border-radius:2px;}
           <li>In <b>Supabase → Authentication → Users → Add user → Create new user</b>, type the same email and a password, tick <b>Auto Confirm User</b>.</li>
           <li>Give them the password. They open the app and sign in — they can change the password from their name at the top right.</li>
         </ol>
-        <ul class="cp-steps"><li><b>Executive</b> — enters and edits production, breakdowns, holds, plans, settings. No billing.</li><li><b>Die Shop</b> — sees only Die Shop Jobs and updates their status.</li><li><b>View only</b> — can look at everything, cannot change anything.</li><li><b>Admin</b> — everything, including contractor billing and this page.</li></ul>
+        <ul class="cp-steps"><li><b>Executive</b> — enters and edits production, breakdowns, holds, plans, settings. No billing.</li><li><b>Quality</b> — Quality Holds and dies due to die shop only.</li><li><b>Die Shop</b> — sees only Die Shop Jobs and updates their status.</li><li><b>View only</b> — can look at everything, cannot change anything.</li><li><b>Admin</b> — everything, including contractor billing and this page.</li></ul>
       </div>
     </div>
     <div class="sec-intro drive-only">
@@ -14786,6 +14820,77 @@ function navResetAll(prevPage){
       try{ if(typeof closeDrill==="function") closeDrill(); }catch(e){} }
     return _sdt.apply(this,arguments);
   };
+})();
+
+</script>
+<script>
+/* ===================== GROUPED NAV MENU + SHORT HELP TEXT ===================== */
+(function navGroups(){
+  const rail=document.getElementById("sideRail"); if(!rail) return;
+  const btn=(p,d)=>rail.querySelector(`.rail-btn[data-page="${p}"]${d?`[data-dept="${d}"]`:":not([data-dept])"}`);
+  const GROUPS=[
+    ["entry","📝","Daily Entry",[["p-floor"],["p-qahold"],["p-diedue"],["p-dieshop"]]],
+    ["reports","📋","Reports",[["p-exec"],["p-report"],["p-plan"],["p-trace"]]],
+    ["analysis","📈","Analysis",[["p-breakdown"],["p-wip"],["p-rejection"],["p-workforce"],["p-oee"]]],
+    ["shops","🏭","Shops",[["p-dept","Shearing"],["p-dept","Press"],["p-dept","Spot"],["p-dept","CO2"],["p-dept","Paint"]]],
+    ["people","👷","Manpower & Stores",[["p-attendance"],["p-ot"],["p-cons"]]],
+    ["logs","🗂","Logs & Records",[["p-transfer"],["p-log"],["p-rejlog"],["p-wipcount"],["p-history"]]],
+    ["setup","⚙️","Setup",[["p-parts"],["p-opening"],["p-settings"],["p-sources"]]]
+  ];
+  const SHORT={"p-transfer":"Production Log","p-wip":"WIP by Stage","p-ot":"Overtime","p-plan":"Plan vs Actual","p-opening":"Opening WIP","p-sources":"Data, Users & Backup","p-attendance":"Attendance"};
+  const used=new Set();
+  const frag=document.createDocumentFragment();
+  GROUPS.forEach(([key,ico,label,items])=>{
+    const g=document.createElement("div"); g.className="rg"; g.dataset.g=key;
+    g.innerHTML=`<button type="button" class="rg-head"><span class="rg-ico">${ico}</span><span class="rg-lbl">${label}</span><span class="rg-alert"></span><span class="rg-chev">▶</span></button><div class="rg-body"></div>`;
+    const body=g.querySelector(".rg-body");
+    items.forEach(([p,d])=>{ const b=btn(p,d); if(!b||used.has(b)) return; used.add(b);
+      if(SHORT[p]){ const tn=[...b.childNodes].find(n=>n.nodeType===3&&n.textContent.trim()); if(tn) tn.textContent=SHORT[p]; }
+      body.appendChild(b); });
+    g.querySelector(".rg-head").onclick=()=>navOpenGroup(g.classList.contains("open")?null:key);
+    if(body.children.length) frag.appendChild(g);
+  });
+  /* anything not listed (added later) goes to Setup */
+  const setup=frag.querySelector('.rg[data-g="setup"] .rg-body');
+  rail.querySelectorAll(":scope > .rail-btn").forEach(b=>{ if(!used.has(b)&&setup) setup.appendChild(b); });
+  rail.querySelectorAll(":scope > .rail-group").forEach(x=>x.remove());
+  rail.appendChild(frag);
+  const foot=document.createElement("div"); foot.className="rail-foot";
+  foot.innerHTML=`<button type="button" id="helpTxtBtn" title="Show or hide the long explanations on every page"></button>`;
+  rail.appendChild(foot);
+
+  window.navOpenGroup=function(key){
+    rail.querySelectorAll(".rg").forEach(g=>g.classList.toggle("open",g.dataset.g===key));
+  };
+  window.navSyncGroup=function(open){
+    let activeKey=null;
+    rail.querySelectorAll(".rg").forEach(g=>{
+      const act=!!g.querySelector(".rail-btn.active"); g.classList.toggle("has-active",act); if(act) activeKey=g.dataset.g;
+      g.classList.toggle("has-alert",[...g.querySelectorAll(".rail-badge")].some(x=>x.style.display!=="none"&&x.textContent.trim()&&x.textContent.trim()!=="0"));
+    });
+    if(open) navOpenGroup(activeKey);
+  };
+  const _sw=switchPage;
+  switchPage=function(id,dept){ const r=_sw(id,dept); try{ navSyncGroup(true); }catch(e){} return r; };
+  new MutationObserver(()=>{ try{ navSyncGroup(false); }catch(e){} }).observe(rail,{subtree:true,attributes:true,attributeFilter:["style"],characterData:true,childList:true});
+  /* open the group of the current page whenever the menu opens */
+  const tg=document.getElementById("navToggle"); if(tg) tg.addEventListener("click",()=>{ if(rail.classList.contains("open")) navSyncGroup(true); });
+  navSyncGroup(true);
+
+  /* ---- short help text ---- */
+  const SEL=".hint-line,.note,.sec-intro,.pt-wnote,.mf-note,.tr-lnote";
+  let full=false; try{ full=localStorage.getItem("sew-help-full")==="1"; }catch(e){}
+  const hb=document.getElementById("helpTxtBtn");
+  function setFull(v){ full=v; document.body.classList.toggle("help-full",v); hb.textContent=v?"ⓘ Help text: Full":"ⓘ Help text: Short"; try{ localStorage.setItem("sew-help-full",v?"1":"0"); }catch(e){} }
+  hb.onclick=()=>setFull(!full); setFull(full);
+  function mark(){ document.querySelectorAll(SEL).forEach(el=>{ if(el.dataset.exDone) return; if(el.closest(".ac-list,#billingPrintArea,.side-rail")) return;
+      el.dataset.exDone="1"; if((el.textContent||"").replace(/\s+/g," ").trim().length>90){ el.classList.add("ex-tip"); el.title="Click to read"; } }); }
+  document.addEventListener("click",e=>{ const t=e.target.closest(".ex-tip"); if(!t||full) return;
+    if(e.target.closest("a,button,input,select,textarea,label")&&t.classList.contains("ex-open")) return;
+    if(!t.classList.contains("ex-open")){ e.preventDefault(); e.stopPropagation(); t.classList.add("ex-open"); t.title=""; }
+    else if(!e.target.closest("a,button,input,select,textarea,label")){ t.classList.remove("ex-open"); t.title="Click to read"; } },true);
+  let tm=null; new MutationObserver(()=>{ clearTimeout(tm); tm=setTimeout(mark,200); }).observe(document.getElementById("appWrap")||document.body,{childList:true,subtree:true});
+  mark();
 })();
 
 </script>
