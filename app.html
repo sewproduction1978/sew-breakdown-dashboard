@@ -1683,6 +1683,69 @@ td mark,.dt mark{background:#fde68a;color:#111;padding:0 1px;border-radius:2px;}
   .cn-bover{fill:var(--red);} .cn-ref{stroke:var(--amber); stroke-width:1.5; stroke-dasharray:5 4;} .cn-refl{font:600 10px 'Inter',sans-serif; fill:var(--amber);}
   @media print{ #billingPrintArea .cn-ptp{font-size:8px; table-layout:auto;} }
 
+  /* ===================== PRINT ANYTHING / QUICK SHEET / PAIRS ===================== */
+  .pg-pbtn{margin-left:auto; border:1px solid var(--border); background:var(--panel); color:var(--text); border-radius:8px; padding:5px 10px; font:600 12px 'Inter',sans-serif; cursor:pointer;}
+  .pg-pbtn:hover{border-color:var(--brand); color:var(--brand);}
+  .pg-pbtn.sm{margin-left:8px; padding:2px 7px; font-size:12px; opacity:.55;} .panel-head:hover .pg-pbtn.sm{opacity:1;}
+  .page-title-bar{display:flex; align-items:center; gap:10px;}
+  @media (max-width:700px){ #pgPrintBtn span{display:none;} }
+  .pg-print{display:none;}
+  @page pgland{size:A4 landscape; margin:8mm;}
+  @media print{
+    #billingPrintArea .pg-print{display:block; page:pgland; color:#000; font-size:10.5px;}
+    #billingPrintArea .pg-head{display:flex; justify-content:space-between; border-bottom:2px solid #000; padding-bottom:4px; margin-bottom:8px; font-size:11px;}
+    #billingPrintArea .pg-print *{box-shadow:none !important; max-height:none !important; animation:none !important;}
+    #billingPrintArea .pg-print .ct-gridwrap, #billingPrintArea .pg-print .table-wrap, #billingPrintArea .pg-print .occ-mxw{overflow:visible !important;}
+    #billingPrintArea .pg-print .panel{border:1px solid #bbb; margin:0 0 8px; break-inside:auto;}
+    #billingPrintArea .pg-print .exec-card, #billingPrintArea .pg-print .pt-mini, #billingPrintArea .pg-print .pt-cbig, #billingPrintArea .pg-print .chart-grid > .panel{break-inside:avoid;}
+    #billingPrintArea .pg-print table{width:100%; border-collapse:collapse; font-size:9.5px;}
+    #billingPrintArea .pg-print th, #billingPrintArea .pg-print td{border:1px solid #ccc !important; padding:2px 4px !important;}
+    #billingPrintArea .pg-print thead{display:table-header-group;}
+    #billingPrintArea .pg-print .ct-sticky, #billingPrintArea .pg-print .pt-s0, #billingPrintArea .pg-print .pt-s1, #billingPrintArea .pg-print .pt-s1c, #billingPrintArea .pg-print .pt-s2, #billingPrintArea .pg-print .pt-s3, #billingPrintArea .pg-print thead th{position:static !important;}
+    #billingPrintArea .pg-print .pg-val{font-family:'JetBrains Mono',monospace;}
+    #billingPrintArea .pg-print .pg-chip{font-weight:700; border:1px solid #000; border-radius:4px; padding:0 4px; margin-right:4px;}
+    #billingPrintArea .pg-print .dtab-panel{display:block !important;}
+    #billingPrintArea .pg-print svg{display:block;}
+    #billingPrintArea .pg-print *{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+  .qs-panel:empty{display:none;}
+  .qs-bar{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:flex-end; margin-bottom:6px;}
+  .qs-bar label{display:flex; flex-direction:column; gap:3px; font:700 10.5px 'Inter',sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;}
+  .qs-bar label.chk{flex-direction:row; align-items:center; text-transform:none; font-size:13px; color:var(--text);}
+  .qs-bar input:not([type=checkbox]), .qs-bar select{background:var(--input-bg); border:1px solid var(--border); border-radius:8px; padding:7px 9px; color:var(--text); font:500 13px 'Inter',sans-serif; min-width:140px;}
+  .qs-wrap{max-height:62vh;}
+  .qs-grid .ct-sticky{min-width:240px; max-width:320px;}
+  .qs-grid td{padding:0 4px;} .qs-grid td.mono, .qs-grid td.ct-num{padding:6px 8px;}
+  .qs-pn{font-weight:500; color:var(--muted); font-size:11.5px;}
+  .qs-in{width:80px;}
+  .qs-tx{width:130px; border:none; background:transparent; padding:7px 6px; color:var(--text); font:500 12.5px 'Inter',sans-serif; outline:none;}
+  .qs-tx:focus{background:var(--brand-soft); box-shadow:inset 0 0 0 2px var(--brand);}
+  .qs-grid tr.qs-wait td.ct-num{color:var(--amber); font-weight:700;}
+  .qs-grid tr.qs-twin td{background:var(--panel-2); color:var(--muted);}
+  .qs-twinmsg{font-size:12px; font-style:italic; padding:6px 8px !important;}
+  .qs-mate{font-size:11px; color:var(--blue); margin-top:2px;}
+  .pair-new, .pair-pick{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px; font-size:13px;}
+  .pair-new select{flex:1; min-width:220px; background:var(--input-bg); border:1px solid var(--border); border-radius:8px; padding:7px 9px; color:var(--text);}
+  .pair-pick{padding:10px; border:1px dashed var(--brand-line); border-radius:10px;}
+  .pair-t td{vertical-align:top;}
+  .pair-hint{margin-top:6px; font-size:12px; color:var(--blue); background:color-mix(in srgb, var(--blue) 8%, var(--panel)); border-radius:7px; padding:5px 8px;}
+
+  /* ===================== DROPDOWNS IN BOTH THEMES ===================== */
+  :root{color-scheme:light;}
+  [data-theme="dark"]{color-scheme:dark;}
+  /* the open list of every dropdown: always dark text on light, or light text on dark */
+  select option, select optgroup, datalist option{background-color:#ffffff !important; color:#1b1f1c !important;}
+  select optgroup{font-weight:700; color:#5d665f !important;}
+  select option:checked{background-color:#d9eedf !important; color:#0f3d1f !important;}
+  select option:disabled{color:#9aa39c !important;}
+  [data-theme="dark"] select option, [data-theme="dark"] select optgroup, [data-theme="dark"] datalist option{background-color:#1e2420 !important; color:#edf1ee !important;}
+  [data-theme="dark"] select optgroup{color:#9aa69c !important;}
+  [data-theme="dark"] select option:checked{background-color:#2c4a35 !important; color:#ffffff !important;}
+  select{color-scheme:inherit;}
+  .ac-list.ac-float{z-index:10050; box-shadow:0 12px 32px rgba(0,0,0,.28); border-color:var(--brand-line);}
+  [data-theme="dark"] .ac-list.ac-float{background:var(--panel-2);}
+  .ac-item{color:var(--text);}
+
   /* ===================== VOICE ENTRY ===================== */
   .fab-voice{position:fixed; right:18px; bottom:18px; z-index:801; width:58px; height:58px; border-radius:50%; border:none; background:var(--brand); color:#fff; font-size:26px; display:none; align-items:center; justify-content:center; box-shadow:0 10px 26px -8px var(--brand-line), var(--shadow); cursor:pointer;}
   body.cloud.role-admin .fab-voice, body.cloud.role-executive .fab-voice{display:flex;}
@@ -1771,6 +1834,13 @@ td mark,.dt mark{background:#fde68a;color:#111;padding:0 1px;border-radius:2px;}
   body.role-dieshop #backupBtn,
   body.role-dieshop #escBar{display:none !important;}
   body.role-viewer #fabRecord, body.role-viewer #saveBtn{display:none !important;}
+  /* quality role: quality hold + dies due pages only */
+  body.role-quality .side-rail .rail-btn:not([data-page="p-qahold"]):not([data-page="p-diedue"]),
+  body.role-quality .side-rail .rail-group,
+  body.role-quality #fabRecord, body.role-quality #fabVoice,
+  body.role-quality .head-actions .picker,
+  body.role-quality #backupBtn,
+  body.role-quality #escBar{display:none !important;}
   #billingLockScreen .cl-noaccess-msg{display:none;}
   #billingLockScreen.cloud-noaccess .cl-noaccess-msg{display:block;}
   #billingLockScreen.cloud-noaccess #bl-passwordInput, #billingLockScreen.cloud-noaccess #bl-unlockBtn, #billingLockScreen.cloud-noaccess .bl-pw-note{display:none;}
@@ -2575,6 +2645,7 @@ td mark,.dt mark{background:#fde68a;color:#111;padding:0 1px;border-radius:2px;}
     <div class="dtab-panel" id="dt-compat">
       <div class="sec-intro">
         Which presses can run a given part's process, and what each press is tooled to run — from the machine load matrix.
+        <button class="btn btn-ghost btn-sm" onclick="switchPage('p-parts'); setTimeout(()=>{ const e=document.getElementById('pairFinder'); if(e) e.scrollIntoView({behavior:'smooth'}); },300);">↔ L / R parts on one die</button>
         <b>499 process-dies</b> mapped across <b>47 presses</b>.
       </div>
 
@@ -2935,6 +3006,7 @@ td mark,.dt mark{background:#fde68a;color:#111;padding:0 1px;border-radius:2px;}
   <!-- ======== TRANSFER / PRODUCTION (EDIT) ======== -->
   <div class="page-view" id="p-transfer">
     <div id="unmatchedBannerTr"></div>
+    <div class="panel qs-panel" id="qsHost" style="margin-top:0;"></div>
     <button class="guided-tip" id="goFloorTip"><b>Easier way to record:</b> Shop Floor Entry asks one question at a time — part, machine, operator, quantity — and moves the pieces to the next stage for you. <span>Open Shop Floor Entry →</span></button>
     <div class="panel" style="margin-top:0;">
       <div class="panel-head">
@@ -3257,7 +3329,7 @@ td mark,.dt mark{background:#fde68a;color:#111;padding:0 1px;border-radius:2px;}
         <div class="cp-add">
           <div class="field"><label>Name</label><input id="cpNewName" placeholder="e.g. Imran"></div>
           <div class="field"><label>Email</label><input id="cpNewEmail" type="email" placeholder="name@gmail.com"></div>
-          <div class="field"><label>Role</label><select id="cpNewRole"><option value="executive">Executive</option><option value="dieshop">Die Shop</option><option value="viewer">View only</option><option value="admin">Admin</option></select></div>
+          <div class="field"><label>Role</label><select id="cpNewRole"><option value="executive">Executive</option><option value="dieshop">Die Shop</option><option value="quality">Quality</option><option value="viewer">View only</option><option value="admin">Admin</option></select></div>
           <button class="btn btn-brand" id="cpAddBtn">+ Add person</button>
         </div>
         <ol class="cp-steps">
@@ -5708,7 +5780,7 @@ function renderTrTable__raw(){
         <td>${hl(t.operator||"—")}</td>
         <td class="mono">${hl(t.machine||"—")}</td>
         <td class="mono">${m.reg+m.ot>0?fmtHM(m.reg+m.ot):"—"}${m.ot>0?`<br><span style="color:var(--brand);">OT ${fmtHM(m.ot)}</span>`:""}</td>
-        <td>${t.ot?'<span class="badge done">OT</span> ':''}${t.dieChange?'<span class="badge prog">Die/Jig</span>':''}${(!t.ot&&!t.dieChange)?'<span class="badge muted">—</span>':''}</td>
+        <td>${t.ot?'<span class="badge done">OT</span> ':''}${t.dieChange?'<span class="badge prog">Die/Jig</span>':''}${(t.pairOf||t.pairDone)?'<span class="badge prog" title="L and R made together on one die">L↔R</span> ':''}${(!t.ot&&!t.dieChange&&!t.pairOf&&!t.pairDone)?'<span class="badge muted">—</span>':''}</td>
         <td><div class="row-actions"><button class="icon-btn" data-etr="${t.id}">✎</button><button class="icon-btn" data-dtr="${t.id}">✕</button></div></td>
       </tr>`;
     }).join("")}</tbody></table>`;
@@ -10270,7 +10342,8 @@ setTimeout(()=>{
    ========================================================== */
 const SB_URL="https://lictfwefdjwdqmuiqvib.supabase.co";
 const SB_KEY="sb_publishable_QFOBNOd9uPzhdT9lWTPvTg_SrPn4elr";
-const ROLE_LABEL={admin:"Admin",executive:"Executive",dieshop:"Die Shop",viewer:"View only",none:"No access"};
+const ROLE_LABEL={admin:"Admin",executive:"Executive",dieshop:"Die Shop",quality:"Quality",viewer:"View only",none:"No access"};
+function qaRecordOk(x){ return !!x&&typeof x==="object"&&(x.category==="Quality Hold"||!!x.holdId||!!x.concernId); }
 var CLOUD={lockP:Promise.resolve(), on:false, sb:null, user:null, profile:null, role:"none", channel:null, live:false, everLive:false,
   rows:new Map(), rowStr:new Map(), lastSync:null, fullAt:0, rtQ:[], rtTimer:null, auditSent:new Set(), offlineCopy:false,
   splashDone:false, wantLogin:false, loginMsg:"", loginOpt:{}, cacheTimer:null, loadingNow:false, renderTimer:null, catchTimer:null};
@@ -10627,6 +10700,12 @@ function cloudCanWrite(op){
   const r=CLOUD.role, t=op.k[0];
   if(r==="admin") return true;
   if(r==="executive") return t!=="b"&&op.k!=="d|wp:pt:tpl"&&op.k!=="d|wp:consQuota";   // check-sheet standards & consumable allowances: admin only
+  if(r==="quality"){
+    if(t!=="r") return false;
+    if(op.k.startsWith("r|dieConcerns|")) return true;
+    if(op.k.startsWith("r|entries|")) return qaRecordOk(op.del?op.old:op.v)&&(!op.old||qaRecordOk(op.old));
+    return false;
+  }
   if(r==="dieshop"){
     if(t!=="r"||op.del||!op.old||!op.k.startsWith("r|entries|")) return false;
     return op.old.subCause==="Die breakdown"&&!!op.v&&op.v.subCause==="Die breakdown";
@@ -10708,6 +10787,7 @@ async function cloudPushAudit(kind,dropped){
     if(CLOUD.role==="viewer") return false;
     if(x.coll==="billingLines"||x.coll==="billingQty") return CLOUD.role==="admin";
     if(CLOUD.role==="dieshop"&&x.coll!=="entries") return false;
+    if(CLOUD.role==="quality"&&x.coll!=="entries"&&x.coll!=="dieConcerns") return false;
     const coll=x.coll==="attendance"?"attendance":x.coll;
     return !bad.has("r|"+coll+"|"+x.recId);
   };
@@ -10951,6 +11031,7 @@ async function cloudStartSession(session){
   cloudSubscribe();
   await cloudLoadBoth();
   if(CLOUD.role==="dieshop") switchPage("p-dieshop");
+  if(CLOUD.role==="quality") switchPage("p-qahold");
 }
 async function cloudSignOut(){
   if((bdDirty||wpDirty)&&!confirm("Some changes haven't reached the server yet. Sign out anyway?\n\nThey stay on this device and are sent the next time you sign in here.")) return;
@@ -11008,7 +11089,7 @@ document.addEventListener("click",e=>{ const m=document.getElementById("userMenu
    ========================================================== */
 function cloudApplyRole(){
   const b=document.body;
-  ["admin","executive","dieshop","viewer"].forEach(r=>b.classList.remove("role-"+r));
+  ["admin","executive","dieshop","quality","viewer"].forEach(r=>b.classList.remove("role-"+r));
   b.classList.add("cloud","role-"+CLOUD.role);
   const p=CLOUD.profile||{};
   const nm=document.getElementById("userChipName"); if(nm) nm.textContent=(p.full_name||p.email||"").split(" ")[0];
@@ -11123,7 +11204,7 @@ async function cloudRenderPeople(){
     if(a.error) throw a.error; if(p.error) throw p.error;
     const has=new Set((p.data||[]).map(x=>String(x.email||"").toLowerCase()));
     const me=String((CLOUD.profile||{}).email||"").toLowerCase();
-    const opt=r=>["admin","executive","dieshop","viewer"].map(x=>`<option value="${x}"${x===r?" selected":""}>${ROLE_LABEL[x]}</option>`).join("");
+    const opt=r=>["admin","executive","dieshop","quality","viewer"].map(x=>`<option value="${x}"${x===r?" selected":""}>${ROLE_LABEL[x]}</option>`).join("");
     box.innerHTML=`<div class="table-wrap"><table class="dt"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Login</th><th></th></tr></thead><tbody>${(a.data||[]).map(u=>{ const em=String(u.email).toLowerCase(), self=em===me;
       return `<tr><td>${escapeHtml(u.full_name||"")}</td><td class="mono">${escapeHtml(u.email)}</td>
         <td><select class="cp-role" data-email="${escapeHtml(u.email)}"${self?" disabled title=\"You can't change your own role\"":""}>${opt(u.role)}</select></td>
@@ -11257,7 +11338,7 @@ async function cloudImport(objs){
   const _scun=setCurrentUserName;
   setCurrentUserName=function(n){ if(!CLOUD.on) _scun(n); };
   const _sw=switchPage;
-  switchPage=function(id,dept){ if(CLOUD.on&&CLOUD.role==="dieshop"&&id!=="p-dieshop") id="p-dieshop"; return _sw(id,dept); };
+  switchPage=function(id,dept){ if(CLOUD.on&&CLOUD.role==="dieshop"&&id!=="p-dieshop") id="p-dieshop"; if(CLOUD.on&&CLOUD.role==="quality"&&id!=="p-qahold"&&id!=="p-diedue") id="p-qahold"; return _sw(id,dept); };
   const _us=updateStatus;
   updateStatus=function(){
     _us();
@@ -14428,6 +14509,283 @@ function consRenderQuota(el){
   if(rb){ const re=()=>{ const keep=[...document.querySelectorAll("#p-pairProcs [data-pk]:checked")].map(c=>c.dataset.pk); if(document.getElementById("p-pairWith")&&document.getElementById("p-pairWith").value) pairFillProcs(keep); };
     rb.addEventListener("change",re); new MutationObserver(re).observe(rb,{childList:true}); }
   const g=document.getElementById("clGuest"); if(g){ if(!window.SEW_CLOUD) g.style.display="none"; g.onclick=()=>cloudGuestSignIn(); }
+})();
+
+</script>
+<script>
+/* ---------- L / R on one die: easier setup (replaces the earlier panel) ---------- */
+function pairProcOptions(a,b){ return (a.route||[]).filter(s=>s.dept!=="Store"&&(b.route||[]).some(x=>x.dept===s.dept&&sameProc(x.process,s.process))).map(s=>s.dept+"::"+s.process); }
+function renderPairFinder(){
+  const host=document.getElementById("pairFinder"); if(!host) return;
+  if(!wp.loaded){ host.innerHTML=""; return; }
+  const can=typeof wcCanEdit!=="function"||wcCanEdit();
+  const linked=wp.parts.filter(p=>pairOf(p)&&String(p.id)<String(p.pair.with)&&partById(p.pair.with));
+  const cands=pairCandidates().filter(([l,r])=>!pairOf(l)&&!pairOf(r)&&pairProcOptions(l,r).length);
+  const sorted=wp.parts.slice().sort((a,b)=>String(a.number).localeCompare(String(b.number)));
+  const opts=sel=>`<option value="">Select part…</option>`+sorted.map(p=>`<option value="${escapeHtml(p.id)}" ${p.id===sel?"selected":""}>${escapeHtml(p.number)} — ${escapeHtml(p.name||"")}</option>`).join("");
+  const S=renderPairFinder.state||(renderPairFinder.state={a:"",b:""});
+  const A=partById(S.a), B=partById(S.b), mOpts=A&&B?pairProcOptions(A,B):[];
+  const procLab=x=>{ const [d,...r]=x.split("::"); return `${escapeHtml(r.join("::"))} <small>${escapeHtml(deptFull(d))}</small>`; };
+  host.innerHTML=`<div class="panel-head"><h2>L / R parts made on one die</h2><span class="mono">${linked.length} pair${linked.length===1?"":"s"} linked</span></div><div class="panel-body">
+    <div class="ok-note" style="margin-bottom:12px;">When the <b>same die makes the L and R part in one stroke</b>, link the two parts and tick those processes. After that, <b>one entry records both parts</b> (same qty, date, operator, machine) — in the production form, Shop Floor Entry, bulk entry, Quick sheet and voice. Edit or delete either entry and the other follows.</div>
+    ${can?`<div class="pair-new"><b>Link two parts</b><select id="pfA">${opts(S.a)}</select><span>↔</span><select id="pfB">${opts(S.b)}</select></div>
+      ${A&&B?(mOpts.length?`<div class="pair-pick"><span>Processes where <b>one die makes both</b>:</span>${mOpts.map(x=>`<label class="chk"><input type="checkbox" data-npk="${escapeHtml(x)}" ${x.startsWith("Press::")?"checked":""}> ${procLab(x)}</label>`).join("")}<button class="btn btn-brand btn-sm" id="pfLink">Link these two parts</button></div>`
+        :`<div class="hint-line">These two parts have no process in common in their routes — check the routes on Parts &amp; Routing.</div>`):""}`:""}
+    ${linked.length?`<div class="pt-subhead">Linked pairs — tick or untick processes any time</div><div class="table-wrap"><table class="dt no-cards pair-t"><thead><tr><th>Part</th><th>Partner</th><th>Same die at</th><th></th></tr></thead><tbody>
+      ${linked.map(p=>{ const m=partById(p.pair.with), all=pairProcOptions(p,m); const on=p.pair.procs||[];
+        return `<tr><td><b class="mono">${escapeHtml(p.number)}</b> ${escapeHtml(p.name||"")}</td><td><b class="mono">${escapeHtml(m.number)}</b> ${escapeHtml(m.name||"")}</td>
+        <td><div class="pair-procs">${all.map(x=>`<label class="chk"><input type="checkbox" data-pp="${escapeHtml(p.id)}" data-pk="${escapeHtml(x)}" ${on.some(y=>y===x||(y.split("::")[0]===x.split("::")[0]&&sameProc(y.split("::").slice(1).join("::"),x.split("::").slice(1).join("::"))))?"checked":""} ${can?"":"disabled"}> ${procLab(x)}</label>`).join("")||"—"}</div></td>
+        <td>${can?`<button class="btn btn-ghost btn-sm" data-unpair="${escapeHtml(p.id)}">Unlink</button>`:""}</td></tr>`; }).join("")}</tbody></table></div>`:""}
+    ${cands.length&&can?`<div class="pt-subhead">Looks like L / R pairs by name (${cands.length})</div><div class="hint-line">Tick the ones made on one die and press Link — every press process they share is ticked; untick any above afterwards.</div>
+      <div class="pa-bulk-list">${cands.map(([l,r],i)=>`<label class="chk pa-pl"><input type="checkbox" data-cand="${i}"> <b class="mono">${escapeHtml(l.number)}</b> ${escapeHtml(l.name||"")} <b>↔</b> <b class="mono">${escapeHtml(r.number)}</b> ${escapeHtml(r.name||"")} <small>${pairSharedProcs(l,r).map(x=>x.split("::")[1]).join(", ")}</small></label>`).join("")}</div>
+      <div class="form-actions" style="justify-content:flex-start;"><button class="btn btn-brand btn-sm" id="pairLinkBtn">Link ticked pairs</button></div>`:""}</div>`;
+  if(!can) return;
+  const a=host.querySelector("#pfA"), b=host.querySelector("#pfB");
+  a.onchange=()=>{ S.a=a.value; renderPairFinder(); }; b.onchange=()=>{ S.b=b.value; renderPairFinder(); };
+  const lk=host.querySelector("#pfLink"); if(lk) lk.onclick=()=>{ const procs=[...host.querySelectorAll("[data-npk]:checked")].map(c=>c.dataset.npk); if(!procs.length){ toast("Tick at least one process."); return; }
+    if(A.id===B.id){ toast("Pick two different parts."); return; }
+    pairSet(A,B,procs); S.a=S.b=""; markWp(); renderAll(); toast(`✓ ${A.number} ↔ ${B.number} linked`); };
+  host.querySelectorAll("[data-pp]").forEach(c=>c.onchange=()=>{ const p=partById(c.dataset.pp); if(!p||!p.pair) return; const m=partById(p.pair.with);
+    const procs=[...host.querySelectorAll(`[data-pp="${CSS.escape(p.id)}"]:checked`)].map(x=>x.dataset.pk);
+    if(!procs.length){ if(!confirm("No process ticked — unlink these two parts?")){ c.checked=true; return; } delete p.pair; if(m&&m.pair&&m.pair.with===p.id) delete m.pair; }
+    else pairSet(p,m,procs);
+    markWp(); renderAll(); });
+  host.querySelectorAll("[data-unpair]").forEach(x=>x.onclick=()=>{ const p=partById(x.dataset.unpair); if(!p) return; const m=partById(p.pair.with); delete p.pair; if(m&&m.pair&&m.pair.with===p.id) delete m.pair; markWp(); renderAll(); });
+  const lb=host.querySelector("#pairLinkBtn"); if(lb) lb.onclick=()=>{ const pick=[...host.querySelectorAll("[data-cand]:checked")].map(c=>cands[+c.dataset.cand]); if(!pick.length){ toast("Tick at least one pair."); return; }
+    pick.forEach(([l,r])=>pairSet(l,r,pairSharedProcs(l,r))); markWp(); renderAll(); toast(`✓ Linked ${pick.length} pair${pick.length===1?"":"s"}`); };
+}
+/* tell the person entering that the twin will be recorded too */
+function pairEntryHint(partSel,stageSel,hintId){
+  const ps=document.getElementById(partSel), ss=document.getElementById(stageSel); if(!ps||!ss) return;
+  let h=document.getElementById(hintId);
+  if(!h){ h=document.createElement("div"); h.id=hintId; h.className="pair-hint"; ss.closest(".field").appendChild(h); }
+  const p=partById(ps.value), sk=ss.value||"", i=sk.indexOf("::");
+  const on=p&&i>0&&pairCovers(p,sk.slice(0,i),sk.slice(i+2));
+  const m=on?partById(p.pair.with):null;
+  h.style.display=m?"":"none"; h.innerHTML=m?`↔ Same die: this entry also records <b>${escapeHtml(m.number)}</b> ${escapeHtml(m.name||"")}`:"";
+}
+(function(){
+  const f=()=>pairEntryHint("t-part","t-stage","tPairHint");
+  ["t-part","t-stage"].forEach(id=>{ const e=document.getElementById(id); if(e) e.addEventListener("change",()=>setTimeout(f,0)); });
+  const sh=document.getElementById("p-pairBox"); if(sh){ const l=sh.querySelector("label"); if(l) l.textContent="L / R made together on one die (same stroke)"; }
+})();
+
+/* ===================== QUICK DAILY SHEET =====================
+   Fastest way to enter a day's production: every part & process of one shop on
+   one sheet, last operator / machine filled in, just type the quantities.     */
+const QS={open:false, shop:lsGet("sew-qs-shop","Press"), date:"", model:"", all:false, defOp:"", defMc:""};
+function qsLast(partId,dept,process){
+  let best=null; for(const t of wp.transfers){ if(t.partId===partId&&t.dept===dept&&sameProc(t.process,process)&&(t.operator||t.machine)){ if(!best||String(t.date)>String(best.date)||(t.date===best.date&&(t.enteredAt||0)>(best.enteredAt||0))) best=t; } }
+  return best;
+}
+function qsRows(){
+  const shop=QS.shop, cutoff=dkey(new Date(Date.now()-45*86400000)), rows=[];
+  wp.parts.forEach(p=>{
+    if(QS.model&&partModel(p)!==QS.model) return;
+    const f=computePartFlow(p);
+    (p.route||[]).forEach((s,i)=>{ if(s.dept!==shop) return;
+      const st=f.stages[i]||{}; const recent=wp.transfers.some(t=>t.partId===p.id&&t.dept===shop&&sameProc(t.process,s.process)&&String(t.date)>=cutoff);
+      const wait=Math.max(0,Math.round(st.wip||0));
+      if(!QS.all&&!recent&&wait<=0) return;
+      rows.push({p,s,i,wait,recent,last:qsLast(p.id,shop,s.process)});
+    });
+  });
+  // L/R made together: show only the first part of a pair for that process
+  const shown=new Set(rows.map(r=>r.p.id+"|"+procKey(r.s.process)));
+  rows.forEach(r=>{ if(typeof pairCovers==="function"&&pairCovers(r.p,shop,r.s.process)){ const mate=partById(r.p.pair.with); if(mate){ r.mate=mate; if(String(mate.number)<String(r.p.number)&&shown.has(mate.id+"|"+procKey(r.s.process))) r.twinOf=mate; } } });
+  return rows.sort((a,b)=>String(a.p.number).localeCompare(String(b.p.number),undefined,{numeric:true})||a.i-b.i);
+}
+function renderQuickSheet(){
+  const host=document.getElementById("qsHost"); if(!host) return;
+  const ro=!(typeof wcCanEdit!=="function"||wcCanEdit());
+  if(ro){ host.style.display="none"; return; }
+  host.style.display="";
+  if(!QS.open){ host.innerHTML=`<div class="panel-head"><h2>⚡ Quick daily sheet</h2><button class="btn btn-brand" id="qsOpen">Open quick sheet</button></div><div class="panel-body"><div class="hint-line" style="margin:0">One sheet per shop: every part and process with work waiting, the last operator and machine already filled in — just type the quantities and press Save all. L/R parts made on one die need only one row.</div></div>`;
+    host.querySelector("#qsOpen").onclick=()=>{ QS.open=true; renderQuickSheet(); }; return; }
+  if(!QS.date) QS.date=todayStr();
+  const rows=wp.loaded?qsRows():[];
+  const shops=DEPTS.map(d=>`<option value="${d.key}" ${d.key===QS.shop?"selected":""}>${escapeHtml(d.full)}</option>`).join("");
+  host.innerHTML=`<div class="panel-head"><h2>⚡ Quick daily sheet</h2><button class="btn btn-ghost btn-sm" id="qsClose" style="margin-left:auto">Close</button></div><div class="panel-body">
+    <div class="qs-bar"><label>Date<input type="date" id="qs-date" value="${escapeHtml(QS.date)}"></label><label>Shop<select id="qs-shop">${shops}</select></label>
+      <label>Model<select id="qs-model"><option value="">All models</option>${mfModelOptionsHtml(QS.model)}</select></label>
+      <label>Operator for empty rows<input id="qs-defOp" list="operatorList" value="${escapeHtml(QS.defOp)}" placeholder="optional"></label>
+      <label>Machine for empty rows<input id="qs-defMc" list="machineList" value="${escapeHtml(QS.defMc)}" placeholder="optional"></label>
+      <label>Find part<input id="qs-find" type="search" placeholder="number or name"></label>
+      <label class="chk"><input type="checkbox" id="qs-all" ${QS.all?"checked":""}> Show every part of this shop</label></div>
+    <div class="hint-line">${rows.length} row${rows.length===1?"":"s"} — parts with work waiting or made in the last 45 days${QS.all?" (showing all)":""}. Type <b>Qty</b> and <b>Reject</b>; <b>Enter</b> moves down. You can paste a column from Excel. Rows left empty are skipped.</div>
+    ${rows.length?`<div class="ct-gridwrap qs-wrap"><table class="ct-grid qs-grid"><thead><tr><th class="ct-sticky">Part</th><th>Process</th><th class="ct-num">Waiting</th><th class="ct-num">Qty</th><th class="ct-num">Reject</th><th>Operator</th><th>Machine</th></tr></thead><tbody>
+      ${rows.map((r,i)=>{ const dis=!!r.twinOf; const op=r.last&&r.last.operator||"", mc=r.last&&r.last.machine||"";
+        return `<tr class="${dis?"qs-twin":""}${r.wait>0?" qs-wait":""}" data-i="${i}"><td class="ct-sticky"><b class="mono">${escapeHtml(r.p.number)}</b> <span class="qs-pn">${escapeHtml(r.p.name||"")}</span>${typeof mfModelChip==="function"?mfModelChip(r.p):""}${r.mate&&!dis?`<div class="qs-mate">↔ also records <b>${escapeHtml(r.mate.number)}</b> (same die)</div>`:""}</td>
+        <td class="mono">${escapeHtml(r.s.process)}</td><td class="ct-num">${r.wait?nf(r.wait):"—"}</td>
+        ${dis?`<td colspan="4" class="qs-twinmsg">recorded together with <b>${escapeHtml(r.twinOf.number)}</b> — same die, one stroke</td>`:
+        `<td><input class="ct-in qs-in" data-f="qty" data-r="${i}" data-c="0" inputmode="numeric"></td><td><input class="ct-in qs-in" data-f="reject" data-r="${i}" data-c="1" inputmode="numeric"></td>
+        <td><input class="qs-tx" data-f="operator" data-r="${i}" data-c="2" list="operatorList" value="${escapeHtml(op)}" placeholder="${escapeHtml(QS.defOp||"")}"></td><td><input class="qs-tx" data-f="machine" data-r="${i}" data-c="3" list="machineList" value="${escapeHtml(mc)}" placeholder="${escapeHtml(QS.defMc||"")}"></td>`}</tr>`; }).join("")}</tbody></table></div>
+      <div class="form-actions"><span id="qsCount" class="hint-line" style="margin:0 auto 0 0"></span><button class="btn btn-brand" id="qsSave">✓ Save all</button></div>`
+      :`<div class="empty"><b>No part with work waiting in ${escapeHtml(deptFull(QS.shop))}</b>Tick “Show every part of this shop” to list them all.</div>`}</div>`;
+  const g=id=>host.querySelector(id);
+  g("#qsClose").onclick=()=>{ QS.open=false; renderQuickSheet(); };
+  g("#qs-date").onchange=e=>{ QS.date=e.target.value; };
+  g("#qs-shop").onchange=e=>{ QS.shop=e.target.value; lsSet("sew-qs-shop",QS.shop); renderQuickSheet(); };
+  g("#qs-model").onchange=e=>{ QS.model=e.target.value; renderQuickSheet(); };
+  g("#qs-all").onchange=e=>{ QS.all=e.target.checked; renderQuickSheet(); };
+  g("#qs-find").oninput=e=>{ const w=e.target.value.trim().toLowerCase(); host.querySelectorAll("tbody tr[data-i]").forEach(tr=>{ const r=rows[+tr.dataset.i]; tr.style.display=!w||(r.p.number+" "+(r.p.name||"")+" "+r.s.process).toLowerCase().includes(w)?"":"none"; }); };
+  g("#qs-defOp").onchange=e=>{ QS.defOp=e.target.value.trim(); host.querySelectorAll('.qs-tx[data-f="operator"]').forEach(x=>x.placeholder=QS.defOp); };
+  g("#qs-defMc").onchange=e=>{ QS.defMc=e.target.value.trim(); host.querySelectorAll('.qs-tx[data-f="machine"]').forEach(x=>x.placeholder=QS.defMc); };
+  const cnt=()=>{ const n=[...host.querySelectorAll('.qs-in[data-f="qty"]')].filter(x=>Number(x.value)>0||Number(host.querySelector(`.qs-in[data-f="reject"][data-r="${x.dataset.r}"]`).value)>0).length; const c=g("#qsCount"); if(c) c.textContent=n?`${n} row${n===1?"":"s"} to save`:""; };
+  host.querySelectorAll(".qs-in,.qs-tx").forEach(inp=>{
+    inp.addEventListener("input",cnt);
+    inp.addEventListener("keydown",e=>{ const r=+inp.dataset.r, c=+inp.dataset.c; let t=null;
+      const at=dir=>{ for(let k=r+dir;k>=0&&k<rows.length;k+=dir){ const x=host.querySelector(`[data-r="${k}"][data-c="${c}"]`); if(x) return x; } return null; };
+      if(e.key==="Enter"||e.key==="ArrowDown") t=at(1); else if(e.key==="ArrowUp") t=at(-1);
+      if(t){ e.preventDefault(); t.focus(); try{ t.select(); }catch(_){} } });
+    inp.addEventListener("paste",e=>{ const txt=(e.clipboardData||window.clipboardData).getData("text"); if(!txt||!/[\t\n]/.test(txt.trim())) return; e.preventDefault();
+      const r0=+inp.dataset.r, c0=+inp.dataset.c; const lines=txt.replace(/\r/g,"").split("\n"); if(lines[lines.length-1]==="") lines.pop();
+      let rr=r0; lines.forEach(ln=>{ while(rr<rows.length&&!host.querySelector(`[data-r="${rr}"][data-c="${c0}"]`)) rr++; ln.split("\t").forEach((v,j)=>{ const x=host.querySelector(`[data-r="${rr}"][data-c="${c0+j}"]`); if(x) x.value=v.trim(); }); rr++; }); cnt(); });
+  });
+  const sv=g("#qsSave"); if(sv) sv.onclick=()=>{
+    const date=QS.date||todayStr(); const out=[], bad=[];
+    rows.forEach((r,i)=>{ if(r.twinOf) return; const q=host.querySelector(`[data-f="qty"][data-r="${i}"]`), j=host.querySelector(`[data-f="reject"][data-r="${i}"]`); if(!q) return;
+      const qty=q.value.trim()===""?0:ctParseQty(q.value), rej=j.value.trim()===""?0:ctParseQty(j.value);
+      if(isNaN(qty)||isNaN(rej)||qty<0||rej<0){ bad.push(r.p.number); q.classList.add("bad"); return; }
+      if(!(qty>0)&&!(rej>0)) return;
+      const op=host.querySelector(`[data-f="operator"][data-r="${i}"]`).value.trim()||QS.defOp, mc=host.querySelector(`[data-f="machine"][data-r="${i}"]`).value.trim()||QS.defMc;
+      out.push({id:uid("tr"),partId:r.p.id,dept:QS.shop,process:r.s.process,date,qty:Math.round(qty),reject:Math.round(rej),operator:op,machine:mc,stime:"",etime:"",remarks:"",ot:false,dieChange:false,enteredAt:Date.now(),by:currentUserName(),via:"quick"});
+    });
+    if(bad.length){ alert("Numbers only — check: "+bad.join(", ")); return; }
+    if(!out.length){ toast("Type at least one quantity."); return; }
+    out.forEach(t=>wp.transfers.push(t)); markWp();
+    const twins=out.filter(t=>wp.transfers.some(x=>x.pairOf===t.id)).length;
+    toast(`✓ Saved ${out.length} entr${out.length===1?"y":"ies"} for ${date}${twins?` (+${twins} L/R twin${twins===1?"":"s"})`:""}.`);
+    renderAll();
+  };
+  cnt();
+}
+
+/* ===================== PRINT ANYTHING =====================
+   🖨 next to the page title prints the whole page; 🖨 on any panel prints just
+   that panel — tables, figures and charts as they are on screen, A4 landscape. */
+function pgCompany(){ const c=(wp&&wp.settings&&wp.settings.company)||{}; return c.name||"SEW Engineering"; }
+function pgPrintNodes(nodes,title){
+  const pa=document.getElementById("billingPrintArea"); if(!pa||!nodes.length) return;
+  const ra=document.getElementById("reportPrintArea"); if(ra) ra.innerHTML="";
+  const wrap=document.createElement("div"); wrap.className="pg-print";
+  const now=new Date();
+  wrap.innerHTML=`<div class="pg-head"><div><b>${escapeHtml(pgCompany())}</b> — ${escapeHtml(title)}</div><div>${escapeHtml(now.toLocaleString(undefined,{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}))}${typeof currentUserName==="function"&&currentUserName()?" · printed by "+escapeHtml(currentUserName()):""}</div></div>`;
+  nodes.forEach(node=>{
+    if(!node||node.offsetParent===null&&getComputedStyle(node).display==="none") return;
+    const clone=node.cloneNode(true);
+    const src=[...node.querySelectorAll("input,select,textarea")], dst=[...clone.querySelectorAll("input,select,textarea")];
+    dst.forEach((el,i)=>{ const s=src[i]; if(!s) return; let v="";
+      if(s.tagName==="SELECT") v=s.selectedOptions&&s.selectedOptions[0]?s.selectedOptions[0].textContent:"";
+      else if(s.type==="checkbox"||s.type==="radio") v=s.checked?"☑":"☐";
+      else if(s.type==="file"||s.type==="hidden"||s.type==="search") v="";
+      else v=s.value;
+      const sp=document.createElement("span"); sp.className="pg-val"; sp.textContent=v; el.replaceWith(sp); });
+    clone.querySelectorAll(".row-actions,.icon-btn,.pg-pbtn,.mf-host,.fab,.tr-tip,.ac-list,.wc-edit,.pt-ren,.form-body:not(.open),.hint-click").forEach(x=>x.remove());
+    clone.querySelectorAll("button").forEach(b=>{ if(b.closest("td")&&!b.classList.contains("btn")){ const sp=document.createElement("span"); sp.textContent=b.textContent; b.replaceWith(sp); } else if(b.classList.contains("mf-chip")&&b.classList.contains("on")){ const sp=document.createElement("span"); sp.className="pg-chip"; sp.textContent=b.textContent; b.replaceWith(sp); } else b.remove(); });
+    clone.querySelectorAll("svg").forEach(s=>{ const w=parseFloat(s.getAttribute("width")), h=parseFloat(s.getAttribute("height")); if(w&&h&&!s.getAttribute("viewBox")) s.setAttribute("viewBox",`0 0 ${w} ${h}`); s.setAttribute("width","100%"); s.removeAttribute("height"); s.style.maxHeight=Math.min(h||300,360)+"px"; });
+    clone.removeAttribute("id"); clone.querySelectorAll("[id]").forEach(x=>x.removeAttribute("id"));
+    wrap.appendChild(clone);
+  });
+  pa.classList.add("pt-mode"); pa.innerHTML=""; pa.appendChild(wrap);
+  const root=document.documentElement, theme=root.getAttribute("data-theme");
+  root.setAttribute("data-theme","light");
+  window.print();
+  setTimeout(()=>{ pa.innerHTML=""; pa.classList.remove("pt-mode"); if(theme) root.setAttribute("data-theme",theme); },1500);
+}
+function pgPageTitle(){ const t=(document.getElementById("pageTitle")||{}).textContent||"", s=(document.getElementById("pageSub")||{}).textContent||""; return t+(s?" — "+s:""); }
+function pgPrintPage(){
+  const page=document.querySelector(".page-view.active"); if(!page) return;
+  if(page.id==="p-dept"){
+    const hero=document.getElementById("deptHero"), tab=page.querySelector(".dtab-panel.active");
+    const tabName=(document.querySelector("#deptTabs .dtab.active")||{}).textContent||"";
+    pgPrintNodes([hero&&hero.closest(".panel"),tab].filter(Boolean),pgPageTitle()+(tabName?" · "+tabName:""));
+  } else pgPrintNodes([page],pgPageTitle());
+}
+function pgAddPanelButtons(){
+  document.querySelectorAll(".page-view .panel-head").forEach(h=>{
+    if(h.querySelector(".pg-pbtn")) return;
+    if([...h.querySelectorAll("button")].some(b=>/print/i.test(b.textContent))) return;
+    const b=document.createElement("button"); b.type="button"; b.className="pg-pbtn sm"; b.title="Print this section"; b.textContent="🖨";
+    b.onclick=e=>{ e.stopPropagation(); const panel=h.closest(".panel")||h.parentNode; const t=(h.querySelector("h2")||{}).textContent||pgPageTitle(); pgPrintNodes([panel],t); };
+    h.appendChild(b);
+  });
+}
+(function pgInit(){
+  const bar=document.querySelector(".page-title-bar");
+  if(bar&&!document.getElementById("pgPrintBtn")){ const b=document.createElement("button"); b.type="button"; b.id="pgPrintBtn"; b.className="pg-pbtn"; b.innerHTML="🖨 <span>Print page</span>"; b.title="Print this whole page (A4 landscape)"; b.onclick=pgPrintPage; bar.appendChild(b); }
+  let t=null; const run=()=>{ clearTimeout(t); t=setTimeout(()=>{ try{ pgAddPanelButtons(); }catch(e){} },250); };
+  const app=document.getElementById("appWrap")||document.body; new MutationObserver(run).observe(app,{childList:true,subtree:true}); run();
+})();
+
+(function(){ const _ra=renderAll; renderAll=function(){ _ra.apply(this,arguments);
+  try{ if(currentPage==="p-transfer"){ const h=document.getElementById("qsHost"), a=document.activeElement; if(!(h&&a&&h.contains(a)&&/^(INPUT|SELECT)$/.test(a.tagName))) renderQuickSheet(); } }catch(e){ console.warn("quick sheet",e); } }; })();
+</script>
+<script>
+/* ===================== DROPDOWNS & CLEAN PAGE SWITCHING ===================== */
+/* 1. The searchable part / process lists were cut off by the panel edge (and in
+      dark mode the native lists showed light text on white). The list now opens
+      on top of everything, above or below the box — whichever has room.        */
+function acPlace(list){
+  const inp=list&&list._acInput; if(!inp) return;
+  if(!document.body.contains(inp)){ list.remove(); return; }
+  if(!list.classList.contains("show")) return;
+  const r=inp.getBoundingClientRect(), below=window.innerHeight-r.bottom-10, above=r.top-10;
+  const want=Math.min(300,Math.max(list.scrollHeight,60));
+  list.style.position="fixed"; list.style.left=Math.max(6,r.left)+"px"; list.style.width=Math.max(r.width,240)+"px"; list.style.right="auto";
+  if(below<Math.min(want,180)&&above>below){ const h=Math.min(want,above); list.style.maxHeight=h+"px"; list.style.top=(r.top-4-h)+"px"; }
+  else { list.style.maxHeight=Math.min(want,Math.max(below,120))+"px"; list.style.top=(r.bottom+4)+"px"; }
+  const over=parseFloat(list.style.left)+parseFloat(list.style.width)-window.innerWidth+6; if(over>0) list.style.left=Math.max(6,parseFloat(list.style.left)-over)+"px";
+}
+function acAdopt(inp){
+  if(!inp||!inp.classList||!inp.classList.contains("ac-input")) return null;
+  let list=inp._acList;
+  if(!list){ list=inp.parentNode&&inp.parentNode.querySelector(".ac-list"); if(!list) return null; inp._acList=list; list._acInput=inp; }
+  if(list.parentNode!==document.body){ list.classList.add("ac-float"); document.body.appendChild(list); }
+  return list;
+}
+["focusin","input","keydown","click"].forEach(ev=>document.addEventListener(ev,e=>{ const l=acAdopt(e.target); if(l) setTimeout(()=>acPlace(l),0); },true));
+const acAll=()=>document.querySelectorAll("body > .ac-list.show").forEach(acPlace);
+window.addEventListener("scroll",acAll,true); window.addEventListener("resize",acAll);
+setInterval(()=>document.querySelectorAll("body > .ac-list").forEach(l=>{ if(l._acInput&&!document.body.contains(l._acInput)) l.remove(); }),15000);
+
+/* 2. Moving to another page or tab starts clean: forms that were opened are
+      closed, edits are cancelled, side panels and editors are put away.       */
+function navResetIn(scope){
+  if(!scope) return;
+  scope.querySelectorAll(".form-body.open").forEach(f=>f.classList.remove("open"));
+  scope.querySelectorAll(".edit-banner.show").forEach(b=>b.classList.remove("show"));
+}
+function navResetAll(prevPage){
+  try{ if(typeof closeDrill==="function") closeDrill(); }catch(e){}
+  ["exitEditBd","exitEditAtt","exitEditTr","exitEditPart"].forEach(fn=>{ try{ if(typeof window[fn]==="function") window[fn](); }catch(e){} });
+  try{ if(typeof editingDcId!=="undefined") editingDcId=null; }catch(e){}
+  navResetIn(document.getElementById(prevPage));
+  try{ ptS.partsOpen=false; ptS.std=null; }catch(e){}
+  try{ paBulkOpen=false; }catch(e){}
+  try{ QS.open=false; }catch(e){}
+  try{ OCC.sel=null; }catch(e){}
+  try{ CNS.editId=null; }catch(e){}
+  try{ if(renderPairFinder.state){ renderPairFinder.state.a=""; renderPairFinder.state.b=""; } }catch(e){}
+  try{ qhOpenDecision=null; }catch(e){}
+  document.querySelectorAll("body > .ac-list.show").forEach(l=>l.classList.remove("show"));
+  const um=document.getElementById("userMenu"); if(um) um.classList.remove("show");
+  document.body.classList.remove("nav-open");
+}
+(function(){
+  const _sw=switchPage;
+  switchPage=function(id,dept){
+    const changing=id!==currentPage||(id==="p-dept"&&dept&&dept!==currentDept);
+    if(changing) navResetAll(currentPage);
+    return _sw.apply(this,arguments);
+  };
+  const _sdt=switchDeptTab;
+  switchDeptTab=function(t){
+    if(t!==currentDeptTab){ navResetIn(document.getElementById("dt-"+currentDeptTab));
+      try{ ptS.partsOpen=false; ptS.std=null; OCC.sel=null; }catch(e){}
+      try{ if(typeof closeDrill==="function") closeDrill(); }catch(e){} }
+    return _sdt.apply(this,arguments);
+  };
 })();
 
 </script>
